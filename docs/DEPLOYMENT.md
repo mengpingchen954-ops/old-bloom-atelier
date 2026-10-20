@@ -11,3 +11,5 @@
 - 发布白名单仅包含源码、配置、原创 SVG、第三方许可、文档及测试代码。排除 node_modules、dist、缓存、research 脚本、研究下载、本地存档、备份、截图、测试产物、凭据与其他游戏内容。
 
 本地的 `artifacts/` 保存验收证据，不会上传。存档属于当前网站来源，本地与 Pages 之间需要使用游戏内“手作札记 → 下载存档备份 / 从备份恢复”。
+
+最终资源核验：公开页面的 JS、CSS、favicon 均为 HTTP 200，与本地生产构建逐字节一致；构建换行以 `.gitattributes` 统一，支持 Windows 本地与 Linux Actions 可复现资产输出。裸资源核验脚本：`node tests/public-assets.mjs`。

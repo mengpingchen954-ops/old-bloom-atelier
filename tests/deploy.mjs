@@ -35,7 +35,7 @@ if(repository.private||repository.owner.login!==owner)throw Error('仓库归属�
 if(!fs.existsSync(path.join(root,'.git'))){git(['init','-b','main']);git(['config','user.name',user.name||owner]);git(['config','user.email',`${user.id}+${owner}@users.noreply.github.com`]);git(['remote','add','origin',repository.clone_url]);}
 if(git(['rev-parse','--show-toplevel']).replaceAll('\\','/').toLowerCase()!==root.replaceAll('\\','/').toLowerCase())throw Error('必须在游戏自己的仓库中发布。');
 if(git(['remote','get-url','origin'])!==repository.clone_url)throw Error('Git remote 不匹配，停止发布。');
-git(['add','.gitignore','.github','src','tests','docs','index.html','package.json','package-lock.json','vite.config.js','README.md','start-game.cmd','favicon.svg','public']);
+git(['add','.gitattributes','.gitignore','.github','src','tests','docs','index.html','package.json','package-lock.json','vite.config.js','README.md','start-game.cmd','favicon.svg','public']);
 const staged=git(['diff','--cached','--name-only']).split('\n').filter(Boolean);
 if(staged.some(file=>/^(artifacts|node_modules|dist|\.netlify)\//.test(file)||/(^|\/)\.env($|\.)/.test(file)))throw Error('发布文件包含不应上传的内容。');
 if(staged.length)git(['commit','-m','Publish Old Bloom playable workshop with GitHub Pages']);
