@@ -1,0 +1,3 @@
+import {chromium} from '@playwright/test';
+import fs from 'node:fs';
+const browser=await chromium.launch({channel:'chrome',headless:true,args:['--enable-webgl','--ignore-gpu-blocklist']});const page=await browser.newPage({viewport:{width:1440,height:960}});page.on('pageerror',e=>console.log('ERROR',e.message));page.on('console',m=>{if(m.type()==='error')console.log('CONSOLE',m.text())});await page.goto('http://127.0.0.1:5198');await page.waitForTimeout(1500);await page.screenshot({path:'artifacts/first.png'});console.log(await page.evaluate(()=>({state:window.bloom?.getState(),stats:window.bloom?.stats()})));await browser.close();
